@@ -55,7 +55,6 @@ public class WebRequest {
             httpURLConnection.setUseCaches(false);
             DataOutputStream outputStream = new DataOutputStream(httpURLConnection.getOutputStream());
             outputStream.write(data);
-
         } catch (IOException e) {
             e.printStackTrace();
         }
