@@ -24,8 +24,10 @@
 
 package com.somtoday.java.util;
 
+import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Map;
@@ -35,12 +37,13 @@ public class WebRequest {
     public String doPost(String url, Map<String, String> headers, Map<String, String> parameters) {
         StringBuilder response = new StringBuilder();
         try {
-
             StringBuilder urlParameters = new StringBuilder();
             for(String key : parameters.keySet()) {
                 urlParameters.append(key);
-                urlParameters.append("=");
-                urlParameters.append(parameters.get(key));
+                if(parameters.get(key) != null) {
+                    urlParameters.append("=");
+                    urlParameters.append(parameters.get(key));
+                }
                 urlParameters.append("&");
             }
             if(urlParameters.length() > 0) urlParameters.deleteCharAt(urlParameters.length() - 1);
@@ -52,9 +55,65 @@ public class WebRequest {
             httpURLConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             httpURLConnection.setRequestProperty("Charset", "UTF-8");
             httpURLConnection.setRequestProperty("Content-Length", Integer.toString(data.length));
+            for(String key : headers.keySet()) {
+                httpURLConnection.setRequestProperty(key, headers.get(key));
+            }
             httpURLConnection.setUseCaches(false);
             DataOutputStream outputStream = new DataOutputStream(httpURLConnection.getOutputStream());
             outputStream.write(data);
+
+            BufferedReader bufferedReader;
+            if(httpURLConnection.getResponseCode() >= 200 && httpURLConnection.getResponseCode() < 300) {
+                bufferedReader = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
+            } else {
+                bufferedReader = new BufferedReader(new InputStreamReader(httpURLConnection.getErrorStream()));
+            }
+
+            String buffer;
+            while((buffer = bufferedReader.readLine()) != null) {
+                response.append(buffer);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return response.toString();
+    }
+
+    public String doGet(String url, Map<String, String> headers, Map<String, String> parameters) {
+        StringBuilder response = new StringBuilder();
+        try {
+            StringBuilder urlParameters = new StringBuilder();
+            for(String key : parameters.keySet()) {
+                urlParameters.append(key);
+                if(parameters.get(key) != null) {
+                    urlParameters.append("=");
+                    urlParameters.append(parameters.get(key));
+                }
+                urlParameters.append("&");
+            }
+            if(urlParameters.length() > 0) urlParameters.deleteCharAt(urlParameters.length() - 1);
+            url += "?" + urlParameters;
+
+            HttpURLConnection httpURLConnection = (HttpURLConnection) new URL(url).openConnection();
+            httpURLConnection.setDoOutput(true);
+            httpURLConnection.setRequestMethod("GET");
+            httpURLConnection.setRequestProperty("Charset", "UTF-8");
+            for(String key : headers.keySet()) {
+                httpURLConnection.setRequestProperty(key, headers.get(key));
+            }
+            httpURLConnection.setUseCaches(false);
+
+            BufferedReader bufferedReader;
+            if(httpURLConnection.getResponseCode() >= 200 && httpURLConnection.getResponseCode() < 300) {
+                bufferedReader = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
+            } else {
+                bufferedReader = new BufferedReader(new InputStreamReader(httpURLConnection.getErrorStream()));
+            }
+
+            String buffer;
+            while((buffer = bufferedReader.readLine()) != null) {
+                response.append(buffer);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
