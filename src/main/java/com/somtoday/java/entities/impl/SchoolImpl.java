@@ -22,19 +22,43 @@
  * SOFTWARE.
  */
 
-package com.somtoday.java;
+package com.somtoday.java.entities.impl;
 
-import com.somtoday.java.entities.Oauth;
 import com.somtoday.java.entities.School;
-import com.somtoday.java.entities.impl.OauthImpl;
 
-public class SomAPI {
+public class SchoolImpl implements School {
 
-    public static String clientId = "D50E0C06-32D1-4B41-A137-A9A850C892C2";
-    public static String clientSecret = "vDdWdKwPNaPCyhCDhaCnNeydyLxSGNJX";
+    private String name;
+    private String place;
+    private String uuid;
 
-    public Oauth login(String username, String password, School school) {
-        OauthImpl oauth = new OauthImpl();
-        return oauth.login(username, password, school);
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String getPlace() {
+        return place;
+    }
+
+    @Override
+    public String getUuid() {
+        return uuid;
+    }
+
+    @Override
+    public String toString() {
+        return "SchoolImpl{" +
+                "name='" + name + '\'' +
+                ", place='" + place + '\'' +
+                ", uuid='" + uuid + '\'' +
+                '}';
+    }
+
+    public SchoolImpl(String name, String place, String uuid) {
+        this.name = name;
+        this.place = place;
+        this.uuid = uuid;
     }
 }

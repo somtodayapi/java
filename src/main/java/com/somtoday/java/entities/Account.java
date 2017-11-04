@@ -24,5 +24,5 @@
 
 package com.somtoday.java.entities;
 
-public class Account {
+public interface Account {
 }

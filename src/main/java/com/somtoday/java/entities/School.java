@@ -22,19 +22,13 @@
  * SOFTWARE.
  */
 
-package com.somtoday.java;
+package com.somtoday.java.entities;
 
-import com.somtoday.java.entities.Oauth;
-import com.somtoday.java.entities.School;
-import com.somtoday.java.entities.impl.OauthImpl;
+public interface School {
 
-public class SomAPI {
+    public String getName();
 
-    public static String clientId = "D50E0C06-32D1-4B41-A137-A9A850C892C2";
-    public static String clientSecret = "vDdWdKwPNaPCyhCDhaCnNeydyLxSGNJX";
+    public String getPlace();
 
-    public Oauth login(String username, String password, School school) {
-        OauthImpl oauth = new OauthImpl();
-        return oauth.login(username, password, school);
-    }
+    public String getUuid();
 }

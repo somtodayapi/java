@@ -34,7 +34,7 @@ import java.util.Map;
 
 public class WebRequest {
 
-    public String doPost(String url, Map<String, String> headers, Map<String, String> parameters) {
+    String doPost(String url, Map<String, String> headers, Map<String, String> parameters) {
         StringBuilder response = new StringBuilder();
         try {
             StringBuilder urlParameters = new StringBuilder();
@@ -79,7 +79,7 @@ public class WebRequest {
         return response.toString();
     }
 
-    public String doGet(String url, Map<String, String> headers, Map<String, String> parameters) {
+    String doGet(String url, Map<String, String> headers, Map<String, String> parameters) {
         StringBuilder response = new StringBuilder();
         try {
             StringBuilder urlParameters = new StringBuilder();
