@@ -51,23 +51,23 @@ public abstract class WebMethod extends WebRequest {
         this.parameters = parameters;
     }
 
-    public void addParameter(String key, String value) {
+    protected void addParameter(String key, String value) {
         parameters.put(key, value);
     }
 
-    public void addHeader(String key, String value) {
+    protected void addHeader(String key, String value) {
         headers.put(key, value);
     }
 
-    public void clearParameters() {
+    protected void clearParameters() {
         parameters.clear();
     }
 
-    public void clearHeaders() {
+    protected void clearHeaders() {
         headers.clear();
     }
 
-    public void doRequest(RequestType type) {
+    protected void doRequest(RequestType type) {
         switch (type) {
             case GET:
                 handle(doGet(url, headers, parameters));
@@ -81,6 +81,6 @@ public abstract class WebMethod extends WebRequest {
     public abstract void handle(String body);
 
     public enum RequestType {
-        POST, GET;
+        POST, GET
     }
 }

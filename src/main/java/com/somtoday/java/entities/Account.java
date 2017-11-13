@@ -24,5 +24,21 @@
 
 package com.somtoday.java.entities;
 
+import java.util.List;
+
 public interface Account {
+
+    List<Link> getLinks();
+
+    List<Permission> getPermissions();
+
+    //TODO Make it easier to handle
+    List<Object> getAdditionalObjects();
+
+    String getUsername();
+
+    //TODO Find out what this is
+    List<Object> getAccountPermissions();
+
+    Person getPerson();
 }

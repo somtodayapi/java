@@ -105,6 +105,7 @@ public class OauthImpl extends WebMethod implements Oauth {
 
     public Oauth login(String username, String password, School school) {
         clearParameters();
+        clearHeaders();
 
         addHeader("Accept", "application/json");
 
@@ -115,6 +116,22 @@ public class OauthImpl extends WebMethod implements Oauth {
         addParameter("password", password);
         addParameter("scope", "openid");
         addParameter("grant_type", "password");
+
+        doRequest(RequestType.POST);
+
+        return this;
+    }
+
+    public Oauth refresh(String refreshToken) {
+        clearParameters();
+        clearHeaders();
+
+        addHeader("Accept", "application/json");
+
+        addParameter("grant_type", "refresh_token");
+        addParameter("client_id", SomAPI.clientId);
+        addParameter("client_secret", SomAPI.clientSecret);
+        addParameter("refresh_token", refreshToken);
 
         doRequest(RequestType.POST);
 

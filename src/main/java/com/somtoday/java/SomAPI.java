@@ -24,17 +24,45 @@
 
 package com.somtoday.java;
 
+import com.somtoday.java.entities.Account;
 import com.somtoday.java.entities.Oauth;
 import com.somtoday.java.entities.School;
+import com.somtoday.java.entities.impl.AccountImpl;
 import com.somtoday.java.entities.impl.OauthImpl;
+import com.somtoday.java.manager.AdditionalObject;
 
 public class SomAPI {
 
-    public static String clientId = "D50E0C06-32D1-4B41-A137-A9A850C892C2";
-    public static String clientSecret = "vDdWdKwPNaPCyhCDhaCnNeydyLxSGNJX";
+    public static final String clientId = "D50E0C06-32D1-4B41-A137-A9A850C892C2";
+    public static final String clientSecret = "vDdWdKwPNaPCyhCDhaCnNeydyLxSGNJX";
 
     public Oauth login(String username, String password, School school) {
         OauthImpl oauth = new OauthImpl();
         return oauth.login(username, password, school);
+    }
+
+    public Oauth refresh(String refreshToken) {
+        OauthImpl oauth = new OauthImpl();
+        return oauth.refresh(refreshToken);
+    }
+
+    public Account getAccount(String endpoint, String accessToken) {
+        AccountImpl account = new AccountImpl(endpoint);
+        return account.getAccount(accessToken);
+    }
+
+    public Account getAccount(String endpoint, String accessToken, String username) {
+        AccountImpl account = new AccountImpl(endpoint, username);
+        return account.getAccount(accessToken);
+    }
+
+    public Account getAccount(String endpoint, String accessToken, AdditionalObject... additionalObjects) {
+        AccountImpl account = new AccountImpl(endpoint, additionalObjects);
+        return account.getAccount(accessToken);
+    }
+
+    public Account getAccount(String endpoint, String accessToken, String username, AdditionalObject... additionalObjects) {
+        AccountImpl account = new AccountImpl(endpoint, username, additionalObjects);
+        return account.getAccount(accessToken);
     }
 }

@@ -67,7 +67,7 @@ public class SchoolManager extends WebMethod {
 
     public School getSchoolByName(String name) {
         for(School school : schools) {
-            if(school.getName().equals(name)) {
+            if(school.getName().equalsIgnoreCase(name)) {
                 return school;
             }
         }
