@@ -41,6 +41,7 @@ public class AccountImpl extends WebMethod implements Account {
     private String username;
     private List<Object> accountPermissions;
     private Person person;
+    private List<AdditionalObject> validAdditionalObjects;
 
     private AdditionalObject[] additionalObjectArray;
 
@@ -86,6 +87,11 @@ public class AccountImpl extends WebMethod implements Account {
                 '}';
     }
 
+    {
+        validAdditionalObjects = new ArrayList<>();
+        validAdditionalObjects.add(AdditionalObject.RESTRICTIONS);
+    }
+
     public AccountImpl(String apiEndpoint) {
         super(apiEndpoint + "/rest/v1/account/me");
         this.additionalObjectArray = new AdditionalObject[0];
@@ -97,17 +103,30 @@ public class AccountImpl extends WebMethod implements Account {
     }
 
     public AccountImpl(String apiEndpoint, AdditionalObject... additionalObjects) {
-        super(apiEndpoint + "/rest/v1/account/me?" + AdditionalObject.buildUrl(additionalObjects));
+        super(apiEndpoint + "/rest/v1/account/me");
+        for(AdditionalObject additionalObject : additionalObjects) {
+            if(validAdditionalObjects.contains(additionalObject)) {
+                addParameter("additional", additionalObject.getUrlName());
+            } else {
+                throw new IllegalArgumentException("AdditionalObject " + additionalObject + " can't be used on method Account");
+            }
+        }
         this.additionalObjectArray = additionalObjects;
     }
 
     public AccountImpl(String apiEndpoint, String pupilId, AdditionalObject... additionalObjects) {
-        super(apiEndpoint + "/rest/v1/account/" + pupilId + "?" + AdditionalObject.buildUrl(additionalObjects));
+        super(apiEndpoint + "/rest/v1/account/" + pupilId);
+        for(AdditionalObject additionalObject : additionalObjects) {
+            if(validAdditionalObjects.contains(additionalObject)) {
+                addParameter("additional", additionalObject.getUrlName());
+            } else {
+                throw new IllegalArgumentException("AdditionalObject " + additionalObject + " can't be used on method Account");
+            }
+        }
         this.additionalObjectArray = additionalObjects;
     }
 
     public Account getAccount(String accessToken) {
-        clearParameters();
         clearHeaders();
 
         addHeader("Accept", "application/vnd.topicus.platinum+json");

@@ -33,15 +33,4 @@ public enum AdditionalObject {
     public String getUrlName() {
         return urlName;
     }
-
-    public static String buildUrl(AdditionalObject... additionalObjects) {
-        StringBuilder stringBuilder = new StringBuilder();
-        for(AdditionalObject additionalObject : additionalObjects) {
-            stringBuilder.append("additional=");
-            stringBuilder.append(additionalObject.getUrlName());
-            stringBuilder.append("&");
-        }
-        stringBuilder.delete(stringBuilder.length() - 1, stringBuilder.length());
-        return stringBuilder.toString();
-    }
 }
