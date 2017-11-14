@@ -18,39 +18,25 @@
  * SOFTWARE.
  */
 
-package com.somtoday.java.entities.impl;
+package com.somtoday.java.entities;
 
-import com.somtoday.java.entities.Restriction;
-
-import java.util.Arrays;
 import java.util.List;
 
-public class RestrictionImpl implements Restriction {
+public interface SchoolYear {
 
-    private String type;
-    //TODO Find out which types there are
-    private List<Object> items;
+    String getType();
 
-    @Override
-    public String getType() {
-        return type;
-    }
+    List<Link> getLinks();
 
-    @Override
-    public List<Object> getItems() {
-        return items;
-    }
+    List<Permission> getPermissions();
 
-    @Override
-    public String toString() {
-        return "RestrictionImpl{" +
-                "type='" + type + '\'' +
-                ", items=" + items +
-                '}';
-    }
+    List<Object> getAdditionalObjects();
 
-    RestrictionImpl(String type, Object[] items) {
-        this.type = type;
-        this.items = Arrays.asList(items);
-    }
+    String getName();
+
+    String getStartDate();
+
+    String getEndDate();
+
+    boolean isCurrent();
 }

@@ -18,39 +18,23 @@
  * SOFTWARE.
  */
 
-package com.somtoday.java.entities.impl;
+package com.somtoday.java.entities;
 
-import com.somtoday.java.entities.Restriction;
+import com.somtoday.java.manager.AdditionalObject;
 
-import java.util.Arrays;
-import java.util.List;
+public interface SomAPI {
 
-public class RestrictionImpl implements Restriction {
+    Oauth login(String username, String password, School school);
 
-    private String type;
-    //TODO Find out which types there are
-    private List<Object> items;
+    Oauth refresh(String refreshToken);
 
-    @Override
-    public String getType() {
-        return type;
-    }
+    Account getAccount(String endpoint, String accessToken);
 
-    @Override
-    public List<Object> getItems() {
-        return items;
-    }
+    Account getAccount(String endpoint, String accessToken, String username);
 
-    @Override
-    public String toString() {
-        return "RestrictionImpl{" +
-                "type='" + type + '\'' +
-                ", items=" + items +
-                '}';
-    }
+    Account getAccount(String endpoint, String accessToken, AdditionalObject... additionalObjects);
 
-    RestrictionImpl(String type, Object[] items) {
-        this.type = type;
-        this.items = Arrays.asList(items);
-    }
+    Account getAccount(String endpoint, String accessToken, String username, AdditionalObject... additionalObjects);
+
+    SchoolYear getCurrentSchoolYear(String endpoint, String accessToken);
 }

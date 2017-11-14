@@ -26,7 +26,6 @@ package com.somtoday.java.entities.impl;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.somtoday.java.SomAPI;
 import com.somtoday.java.entities.Oauth;
 import com.somtoday.java.entities.School;
 import com.somtoday.java.util.WebMethod;
@@ -99,17 +98,17 @@ public class OauthImpl extends WebMethod implements Oauth {
                 '}';
     }
 
-    public OauthImpl() {
+    OauthImpl() {
         super("https://productie.somtoday.nl/oauth2/token");
     }
 
-    public Oauth login(String username, String password, School school) {
+    Oauth login(String username, String password, School school) {
         clearParameters();
         clearHeaders();
 
         addHeader("Accept", "application/json");
 
-        byte[] authorizationBytes = (SomAPI.clientId + ":" + SomAPI.clientSecret).getBytes(StandardCharsets.UTF_8);
+        byte[] authorizationBytes = (SomAPIImpl.clientId + ":" + SomAPIImpl.clientSecret).getBytes(StandardCharsets.UTF_8);
         addHeader("Authorization", "Basic " + Base64.getEncoder().encodeToString(authorizationBytes));
 
         addParameter("username", school.getUuid() + "\\" + username);
@@ -122,15 +121,15 @@ public class OauthImpl extends WebMethod implements Oauth {
         return this;
     }
 
-    public Oauth refresh(String refreshToken) {
+    Oauth refresh(String refreshToken) {
         clearParameters();
         clearHeaders();
 
         addHeader("Accept", "application/json");
 
         addParameter("grant_type", "refresh_token");
-        addParameter("client_id", SomAPI.clientId);
-        addParameter("client_secret", SomAPI.clientSecret);
+        addParameter("client_id", SomAPIImpl.clientId);
+        addParameter("client_secret", SomAPIImpl.clientSecret);
         addParameter("refresh_token", refreshToken);
 
         doRequest(RequestType.POST);

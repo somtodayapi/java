@@ -92,17 +92,17 @@ public class AccountImpl extends WebMethod implements Account {
         validAdditionalObjects.add(AdditionalObject.RESTRICTIONS);
     }
 
-    public AccountImpl(String apiEndpoint) {
+    AccountImpl(String apiEndpoint) {
         super(apiEndpoint + "/rest/v1/account/me");
         this.additionalObjectArray = new AdditionalObject[0];
     }
 
-    public AccountImpl(String apiEndpoint, String pupilId) {
+    AccountImpl(String apiEndpoint, String pupilId) {
         super(apiEndpoint + "/rest/v1/account/" + pupilId);
         this.additionalObjectArray = new AdditionalObject[0];
     }
 
-    public AccountImpl(String apiEndpoint, AdditionalObject... additionalObjects) {
+    AccountImpl(String apiEndpoint, AdditionalObject... additionalObjects) {
         super(apiEndpoint + "/rest/v1/account/me");
         for(AdditionalObject additionalObject : additionalObjects) {
             if(validAdditionalObjects.contains(additionalObject)) {
@@ -114,7 +114,7 @@ public class AccountImpl extends WebMethod implements Account {
         this.additionalObjectArray = additionalObjects;
     }
 
-    public AccountImpl(String apiEndpoint, String pupilId, AdditionalObject... additionalObjects) {
+    AccountImpl(String apiEndpoint, String pupilId, AdditionalObject... additionalObjects) {
         super(apiEndpoint + "/rest/v1/account/" + pupilId);
         for(AdditionalObject additionalObject : additionalObjects) {
             if(validAdditionalObjects.contains(additionalObject)) {
@@ -126,7 +126,7 @@ public class AccountImpl extends WebMethod implements Account {
         this.additionalObjectArray = additionalObjects;
     }
 
-    public Account getAccount(String accessToken) {
+    Account getAccount(String accessToken) {
         clearHeaders();
 
         addHeader("Accept", "application/vnd.topicus.platinum+json");

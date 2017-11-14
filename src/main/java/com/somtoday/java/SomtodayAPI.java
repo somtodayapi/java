@@ -18,39 +18,14 @@
  * SOFTWARE.
  */
 
-package com.somtoday.java.entities.impl;
+package com.somtoday.java;
 
-import com.somtoday.java.entities.Restriction;
+import com.somtoday.java.entities.SomAPI;
+import com.somtoday.java.entities.impl.SomAPIImpl;
 
-import java.util.Arrays;
-import java.util.List;
+public class SomtodayAPI {
 
-public class RestrictionImpl implements Restriction {
-
-    private String type;
-    //TODO Find out which types there are
-    private List<Object> items;
-
-    @Override
-    public String getType() {
-        return type;
-    }
-
-    @Override
-    public List<Object> getItems() {
-        return items;
-    }
-
-    @Override
-    public String toString() {
-        return "RestrictionImpl{" +
-                "type='" + type + '\'' +
-                ", items=" + items +
-                '}';
-    }
-
-    RestrictionImpl(String type, Object[] items) {
-        this.type = type;
-        this.items = Arrays.asList(items);
+    public SomAPI getApi() {
+        return new SomAPIImpl();
     }
 }

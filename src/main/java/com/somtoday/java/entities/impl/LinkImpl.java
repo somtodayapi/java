@@ -59,7 +59,7 @@ public class LinkImpl implements Link {
                 '}';
     }
 
-    public LinkImpl(String id, String rel, String type, String href) {
+    LinkImpl(String id, String rel, String type, String href) {
         this.id = id;
         this.rel = rel;
         this.type = type;

@@ -78,7 +78,7 @@ public class PersonImpl implements Person {
                 '}';
     }
 
-    public PersonImpl(String type, Link[] links, Permission[] permissions, String pupilNumber, String name, String lastName) {
+    PersonImpl(String type, Link[] links, Permission[] permissions, String pupilNumber, String name, String lastName) {
         this.type = type;
         this.links = Arrays.asList(links);
         this.permissions = Arrays.asList(permissions);

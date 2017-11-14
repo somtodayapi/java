@@ -62,7 +62,7 @@ public class PermissionImpl implements Permission {
                 '}';
     }
 
-    public PermissionImpl(String full, String type, String[] operations, String[] instances) {
+    PermissionImpl(String full, String type, String[] operations, String[] instances) {
         this.full = full;
         this.type = type;
         this.operations = Arrays.asList(operations);
